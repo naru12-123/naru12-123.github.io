@@ -1,1 +1,250 @@
-sfsdfsfsfsfssfsdfvimm sfsdfsdfello World
+<?php
+  //phpinfo();
+  error_reporting(E_ALL);
+  ini_set("display_errors", "1");
+?>
+
+<!doctype html>
+
+<html>
+  <head>
+  
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-type" content="text/html" charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>PHP Contact Form</title>
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    
+    <!-- Optional theme
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    -->
+	
+	<style>
+	
+	
+	
+	</style>
+    
+    
+    
+  </head>
+  
+  <body>
+  
+    
+    <div class="navbar navbar-default">
+    
+      <div class="container">
+      
+        <div class="navbar-header">
+        
+          <a href="" class="navbar-brand">My Website</a>
+          
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        
+        </div>
+        
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        
+          <ul class="nav navbar-nav">
+          
+            <li><a href="#">Page 1</a>
+            <li><a href="#">Page 2</a>
+            <li><a href="#">Page 3</a>
+          
+          </ul>
+        
+        </div>
+      
+      </div>
+    
+    </div>
+    
+    
+    <div class="container">
+        
+        <h1>Contact Us</h1>
+        
+        <?php 
+		
+		$errors = "";
+		
+		if (isset($_POST["submit"])) { 
+		
+		  if (!empty($_POST["firstName"])) { 
+		  
+			$firstName = filter_var($_POST["firstName"],FILTER_SANITIZE_MAGIC_QUOTES);
+			echo $firstName."<BR>";
+			if ($firstName=="") { 
+			  $errors .= "Please enter your first name.<br><br>";
+			}
+		  
+		  }
+		  else { 
+		  
+			$errors .= "You forgot to enter your first name.<br><br>";
+		  
+		  }
+		  
+		 
+		  
+		  if (!empty($_POST["lastName"])) { 
+		  
+			$lastName = filter_var($_POST["lastName"],FILTER_SANITIZE_MAGIC_QUOTES);
+			echo $lastName."<BR>";
+			if ($lastName=="") { 
+			  $errors .= "Please enter your last name.<br><br>";
+			}
+		  
+		  }
+		  else { 
+		  
+			$errors .= "You forgot to enter your last name.<br><br>";
+		  
+		  }
+		  
+		  if (!empty($_POST["emailAddress"])) { 
+		  
+			$emailAddress = filter_var($_POST["emailAddress"],FILTER_SANITIZE_EMAIL);
+			echo $emailAddress."<BR>";
+			if ($emailAddress=="") { 
+			  $errors .= "Please enter your email address.<br><br>";
+			}
+			else { 
+			  if (!filter_var($emailAddress, FILTER_VALIDATE_EMAIL)) { 
+			    $errors .= "$emailAddress is not a valid email. Please enter a valid email address.<br><br>";
+			  }
+			}
+		  
+		  }
+		  else { 
+		  
+			$errors .= "You forgot to enter your email address.<br><br>";
+		  
+		  }
+		  
+		  if (!empty($_POST["message"])) { 
+		  
+			$message = filter_var($_POST["message"],FILTER_SANITIZE_MAGIC_QUOTES);
+			echo $message."<BR>";
+		  
+		  }
+		  else { 
+		  
+			$errors .= "You forgot to enter a message.<br><br>";
+		  
+		  }
+		  
+		  if ($errors) { 
+		
+		  ?>
+		  
+		  <div class="alert alert-danger">
+		  
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>Error!</strong> The following errors occured:<br><br><?php echo $errors; ?>
+		  
+		  </div>
+		  
+		  <?php
+		  
+		  }
+		  
+		  else { 
+		  
+		  ?>
+		  
+		  <div class="alert alert-success">
+		  
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>Success!</strong> Your form was submitted! We will be in touch!
+		  
+		  </div>
+		  
+		  <?php 
+		  
+		  }
+		  
+		
+		} // form isset test
+		
+		?>
+        
+        <form name="myForm" class="form-horizontal" role="form" method="POST" action="#">
+        
+          <div class="form-group">
+          
+            <label for="firstName=" class="col-sm-2 control-label">First Name:</label>
+            
+            <div class="col-sm-10">
+            
+              <input type="text" name="firstName" class="form-control">
+            
+            </div>
+          
+          </div>
+          
+          <div class="form-group">
+          
+            <label for="lastName=" class="col-sm-2 control-label">Last Name:</label>
+            
+            <div class="col-sm-10">
+            
+              <input type="text" name="lastName" class="form-control">
+            
+            </div>
+          
+          </div>
+          
+          <div class="form-group">
+          
+            <label for="emailAddress=" class="col-sm-2 control-label">Email Address:</label>
+            
+            <div class="col-sm-10">
+            
+              <input type="email" name="emailAddress" class="form-control">
+            
+            </div>
+          
+          </div>
+          
+          <div class="form-group">
+          
+            <label for="message=" class="col-sm-2 control-label">Message:</label>
+            
+            <div class="col-sm-10">
+            
+              <textarea name="message" class="form-control" rows="5"></textarea>
+            
+            </div>
+          
+          </div>
+          
+          <div class="form-group">
+            
+            <div class="col-sm-10 col-sm-offset-2">
+            
+              <button type="submit" name="submit" class="btn btn-primary">Submit Form</button>
+            
+            </div>
+          
+          </div>
+        
+        </form>
+      
+    </div>      
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  </body>
+</html>
+
